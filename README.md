@@ -24,5 +24,7 @@ In this collaborative project, I was responsible for:
 ## ⚠️ Compilation Note
 This repository is a **code showcase**. Building the project requires the GBTelera toolchain and specific environment variables. It is provided as a portfolio piece to demonstrate Assembly proficiency and hardware understanding.
 
+## 🕹️ Play the Game
+**The latest stable build is available on itch.io:** 👉 [**Play Pop&Push on itch.io**](https://javierrhp.itch.io/pop-push)
 ---
 *Developed for academic purposes at University of Alicante.*
