@@ -31,29 +31,29 @@ Implementing a save system on bare metal requires direct memory banking manipula
 ### 🍎 Custom Physics & Gravity on Bare Metal
 Implementing realistic physics without floating-point units (FPU) or high-level multiplication required custom mathematical hacks:
 *   **Fixed-Point Arithmetic:** Engineered sub-pixel precision systems using fractional math (splitting 16-bit registers into integer and fractional parts) to simulate smooth gravity vectors and acceleration.
-*   **Advanced Tile Collisions:** Developed a pixel-perfect collision routine that samples the background tilemap coordinates in real-time, handling vertical velocity grounding and horizontal wall bounces smoothly within the v-blank interval[cite: 1].
+*   **Advanced Tile Collisions:** Developed a pixel-perfect collision routine that samples the background tilemap coordinates in real-time, handling vertical velocity grounding and horizontal wall bounces smoothly within the v-blank interval.
 
 ### 🎨 VRAM Optimization & Tile Mirroring
-With only 8KB of video memory, every single byte mattered[cite: 1]:
-*   **Hardware Mirroring:** Optimized the asset pipeline by utilizing the Game Boy's hardware-level sprite mirroring attributes (`OAM` flags for X/Y flip)[cite: 1]. This cut sprite memory usage in half, allowing for complex character animations within strict hardware budgets[cite: 1].
+With only 8KB of video memory, every single byte mattered:
+*   **Hardware Mirroring:** Optimized the asset pipeline by utilizing the Game Boy's hardware-level sprite mirroring attributes (`OAM` flags for X/Y flip). This cut sprite memory usage in half, allowing for complex character animations within strict hardware budgets.
 *   **Dynamic V-Blank DMA Transfers:** Wrote optimized routines during the ultra-short Vertical Blanking period to push sprite data into Object Attribute Memory (OAM) via DMA transfers without causing visual tearing.
 
 ---
 
 ## ⚡ The Engineering Challenge: Cycle Counting Optimization
-**The Problem:** The Game Boy's SM83 processor runs at a massive... 4.19 MHz. Running real-time fixed-point gravity calculations, checking matrix-based tile collisions for multiple active entities, and updating the UI could easily overflow the 60 FPS frame budget, causing massive frame drops[cite: 1].
+**The Problem:** The Game Boy's SM83 processor runs at a massive... 4.19 MHz. Running real-time fixed-point gravity calculations, checking matrix-based tile collisions for multiple active entities, and updating the UI could easily overflow the 60 FPS frame budget, causing massive frame drops.
 
 **The Solution:** 
 *   Replaced costly loops with unrolled assembly instructions where memory permitted.
 *   Optimized collision checks by implementing early-out branching (bounding box pre-filtering) before running fine tile lookups.
 *   Utilized 8-bit registers (`H`, `L`, `D`, `E`) efficiently to keep calculations entirely within the CPU cache, minimizing heavy RAM read/write cycles (`ld [hl], a` optimizations).
-*   **Result:** A locked, butter-smooth 60Hz gameplay experience running perfectly on real legacy hardware[cite: 1].
+*   **Result:** A locked, butter-smooth 60Hz gameplay experience running perfectly on real legacy hardware.
 
 ---
 
 ## 📂 Project Structure
-*   **Language:** SM83 / Z80 Assembly[cite: 1]
-*   **Assembler/Linker:** RGBDS (Rednex Game Boy Development System)[cite: 1]
+*   **Language:** SM83 / Z80 Assembly
+*   **Assembler/Linker:** RGBDS (Rednex Game Boy Development System)
 *   **Target Hardware:** Game Boy DMG-01 (or modern accurate emulators like BGB/SameBoy)
 
 ## 🕹️ Play the Game
